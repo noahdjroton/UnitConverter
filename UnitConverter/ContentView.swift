@@ -20,34 +20,39 @@ struct ContentView: View {
     }
     
     var body: some View {
-        Form{
-            Section("Input unit"){
-                Picker("Select input unit", selection: $inputUnit) {
+        NavigationStack{
+            Form{
+                Section("Input unit"){
+                    Picker("Select input unit", selection: $inputUnit) {
                         ForEach(unitsList, id: \.self) { unit in
                             Text(unit.symbol)
                         }
                     }
-                .pickerStyle(.segmented)
-            }
-            
-            Section("Output unit"){
-                Picker("Select output unit", selection: $outputUnit) {
+                    .pickerStyle(.segmented)
+                }
+                
+                Section("Output unit"){
+                    Picker("Select output unit", selection: $outputUnit) {
                         ForEach(unitsList, id: \.self) { unit in
                             Text(unit.symbol)
                         }
                     }
-                .pickerStyle(.segmented)
+                    .pickerStyle(.segmented)
+                }
+                
+                Section("Input value"){
+                    TextField("Input value", value: $inputValue, format: .number)
+                        .keyboardType(.numberPad)
+                }
+                
+                Section("Out value"){
+                    Text(convertedValue, format: .number)
+                }
+                
             }
-            
-            Section("Input value"){
-                TextField("Input value", value: $inputValue, format: .number)
-            }
-            
-            Section("Out value"){
-                Text(convertedValue, format: .number)
-            }
-
+            .navigationTitle("Unit converter")
         }
+        
     }
 }
 
